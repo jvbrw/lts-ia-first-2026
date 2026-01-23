@@ -16,6 +16,18 @@
 
 ---
 
+## Project Status
+
+| Phase | Status |
+|-------|--------|
+| References gathered | Done |
+| Block outlines | Done |
+| Full script | Done |
+| Presentation deck | Done |
+| Review & approval | Pending |
+
+---
+
 ## Objective
 
 Share **practical, real learnings** about what changes when AI stops being a support tool and becomes part of product/software development.
@@ -48,82 +60,90 @@ Participants should leave with:
 
 ---
 
-## Block 1: What We Learned Building Product with AI in 2025
+## Block 1: O Que Aprendemos Construindo Produto com IA em 2025
 
-**Goal:** Share real learnings, not ideal vision.
+**Presenter:** JV
+**Duration:** ~30 minutes
 
 **Central question:**
-> "What did 2025 teach us, in practice, about building product with AI at the center?"
+> "O que 2025 nos ensinou, na prática, sobre construir produto com IA no centro?"
 
-### Topics to Cover
+### Content Structure
 
-- Where AI worked well in practice
-- Where it broke expectations
-- Mistakes and successes putting AI in production
-- Real cases (good and bad)
-- Frameworks we used or created throughout the year
-- Tools that made a difference (and those that didn't)
+1. **Abertura** - Data reality (88.3% adoption, 32.7% AI PR acceptance)
+2. **Onde IA funcionou bem** - POCs, features de baixa-média complexidade
+3. **Onde IA quebrou expectativas** - Delegation without structure, AI PR problems, agent excess
+4. **AI Framework** - Our practical response (5 capabilities, TDAID methodology)
+5. **3 Princípios validados** - Context Engineering, Human-in-the-Loop shift, Repertório
+6. **Dados de mercado** - LinearB 2026 Benchmarks
+7. **Transição** - Setup for Block 2
 
-### Data & References
+### Key Message
 
-- Include market data for context (without becoming theoretical)
-- Use attached studies as background
-- Add benchmarks that help support the points
+> "A ferramenta não é o mais importante. É como a empresa se organiza para usar as ferramentas disponíveis."
 
 ---
 
-## Block 2: What These Learnings Demand from Team Design in 2026
+## Block 2: O Que Esses Aprendizados Exigem do Desenho dos Times em 2026
 
-**Goal:** Build directly from Block 1 learnings.
+**Presenter:** Gustavo Bassan
+**Duration:** ~30 minutes
 
 **Central question:**
-> "What do leaders need to redesign now to operate AI-first product in 2026?"
+> "O que líderes precisam redesenhar agora para operar produto IA-first em 2026?"
 
-### Topics to Cover
+### Content Structure
 
-- Redesigning ownership and responsibilities in AI-first teams
-- Why context engineering became a discipline
-  - Practical examples of how to better structure context for AI
-  - Example: our Product Spec document
-- How to avoid using AI out of convenience or excess agents without clarity of value
+1. **O Shift Fundamental** - Systems of Record → Systems of Intelligence
+2. **Redesenhando Ownership** - Context Owner, Validation Owner, Feedback Owner
+3. **Context Engineering como Disciplina** - Product Spec as infrastructure, warmup practices
+4. **Evitando IA por Conveniência** - Decision framework, 4 questions before implementing AI
+5. **O Papel do Líder** - Executor → Orchestrator, Specialist → Context Architect
+6. **3 Decisões que não podem ser adiadas** - Ownership, Metrics, Context Engineering investment
 
 ---
 
 ## Reference Materials
 
+### External Data Sources
+
+| Source | File | Status |
+|--------|------|--------|
+| LinearB 2026 Software Engineering Benchmarks | `references/LinearB_2026_Software_Engineering_Benchmarks_Report.pdf` | Added |
+| ABN Asia Report | `references/1765455980320_www.abnasia.org.pdf` | Added |
+
+### Key Data Points Used
+
+| Metric | Value | Source |
+|--------|-------|--------|
+| AI adoption in teams | 88.3% (up from 71.6%) | LinearB 2026 |
+| AI PR acceptance rate | 32.7% | LinearB 2026 |
+| Manual PR acceptance rate | 84.4% | LinearB 2026 |
+| Companies not measuring AI impact | 45% | LinearB 2026 |
+| AI PRs size increase | 2.6x larger | LinearB 2026 |
+| AI PRs pickup time | 5.3x longer | LinearB 2026 |
+
 ### Internal References
 
 | Source | Path | Description |
 |--------|------|-------------|
-| Previous LTS | `areas/marketing/2025/upstream/` | Template, briefing format, final script |
-| Product Foundation | `areas/product/foundation/articles/` | Frameworks and thought leadership |
-| BASS Webinar | `areas/marketing/2025/bass-como-aplicar-ia/` | Related delivery/AI content |
-
-### Key Articles from Product Foundation
-
-- `palantirization.md` - AI integration patterns
-- `boring-companies.md` - Practical AI adoption
-- `systems-of-intelligence.md` - Architecture thinking
-- `digital-factory.md` - Operational models
-
-### External Data Sources
-
-Store PDFs in `references/` folder:
-- [ ] ABN Asia report (market data)
-- [ ] LinearB 2026 Software Engineering Benchmarks Report
+| Previous LTS | `areas/marketing/2025/upstream/` | Template and format reference |
+| Product Foundation | `areas/product/foundation/articles/` | Frameworks (SOI, Palantirization) |
+| AI Framework | `areas/product/operating-system/_old/labs/ai-framework/` | Internal case study |
 
 ---
 
-## Deliverables Checklist
+## Deliverables
 
 ### Pre-Event
 
-- [ ] **Briefing document** - Speaker guidance and context
-- [ ] **Block 1 outline** - Structure for 2025 learnings
-- [ ] **Block 2 outline** - Structure for 2026 redesign
-- [ ] **Full draft** - Complete script with interaction points
-- [ ] **Slides** - Visual support (if needed)
-- [ ] **Review & approval** - Final sign-off
+- [x] **Reference materials** - LinearB report, ABN Asia report
+- [x] **Block 1 outline** - `drafts/block-1-outline.md`
+- [x] **Block 2 outline** - `drafts/block-2-outline.md`
+- [x] **Full script** - `drafts/full-script.md` (Portuguese)
+- [x] **Presentation deck blueprint** - `drafts/presentation-deck.md`
+- [x] **Visual presentation** - `drafts/presentation.pdf` (45 slides)
+- [ ] **Review & approval** - Final sign-off from speakers
 
 ### Post-Event
 
@@ -137,55 +157,83 @@ Store PDFs in `references/` folder:
 
 ```
 projects/lts-ia-first-2026/
-├── README.md           # This file - project context and instructions
-├── references/         # External data, PDFs, benchmarks
-│   ├── linearb-2026-benchmarks.pdf
-│   └── abn-asia-report.pdf
-└── drafts/             # Working documents
-    ├── briefing.md
-    ├── block-1-outline.md
-    ├── block-2-outline.md
-    └── final-script.md
+├── README.md                    # This file
+├── references/                  # External data and benchmarks
+│   ├── LinearB_2026_Software_Engineering_Benchmarks_Report.pdf
+│   └── 1765455980320_www.abnasia.org.pdf
+└── drafts/                      # Working documents
+    ├── block-1-outline.md       # JV's block structure
+    ├── block-2-outline.md       # Bassan's block structure
+    ├── full-script.md           # Complete speaker script (PT-BR)
+    ├── presentation-deck.md     # Slide-by-slide blueprint for designer
+    ├── presentation.html        # Visual deck source (editable)
+    └── presentation.pdf         # Final visual deck (45 slides)
 ```
 
 ---
 
-## Working with Claude
+## Presentation Design
 
-### AI Readiness: Almost-Ready
+The visual deck (`presentation.pdf`) was created with the following specifications:
 
-Claude can help with:
-- Drafting content based on references
-- Structuring the presentation flow
-- Extracting insights from product foundation articles
-- Creating speaker talking points
-- Formatting and consistency
+| Attribute | Value |
+|-----------|-------|
+| Slides | 45 |
+| Dimensions | 1920x1080 (16:9) |
+| Theme | Dark (#0a0a0b base) |
+| Accent | Blue (#3b82f6) |
+| Typography | Inter |
+| Format | PDF (1.1MB) |
 
-Human input needed for:
-- Validating real cases and examples
-- Confirming specific learnings from 2025
-- Approving final messaging and tone
-- Adding proprietary BossaBox insights
+### Design Elements
 
-### Suggested Workflow
+- Color-coded data points (green positive, red warning)
+- Card-based layouts for case studies
+- Clean comparison grids (DE → PARA pattern)
+- Flow diagrams for AI Framework workflow
+- Section dividers with gradient backgrounds
 
-1. **Context loading** - Claude reads product foundation articles + previous LTS
-2. **Outline draft** - Claude proposes structure for both blocks
-3. **Human review** - Validate direction and add specific cases
-4. **Full draft** - Claude expands outline with content
-5. **Polish** - Collaborative refinement with interaction prompts
+The `presentation.html` file can be edited directly for modifications. The `presentation-deck.md` serves as a blueprint if a designer needs to recreate the deck in another tool.
 
 ---
 
-## Quick Start
+## Key Frameworks Introduced
 
-To begin working on this project:
+### 1. AI Framework (Internal Case)
 
-```
-# Load context
-Read areas/marketing/2025/upstream/leading-tech-session-final.md
-Read areas/product/foundation/articles/
+BossaBox's framework for AI-assisted product development:
+- **5 Capabilities**: PM, Tech Lead, SWE, QA, Refinement
+- **TDAID**: Test-Driven AI Development (Planning → Red → Green → Validate)
+- **Result**: 32% → 80%+ PR acceptance rate
 
-# Start drafting
-Create drafts/block-1-outline.md
-```
+### 2. Systems of Intelligence (SOI)
+
+Transition from Systems of Record to Systems of Intelligence:
+- Human-in-the-loop → Human-on-the-loop
+- Dashboards → Real-time intelligence
+- Human middleware → Autonomous outcomes
+
+### 3. Three Owners Model
+
+New ownership structure for AI-first teams:
+- **Context Owner** - Ensures AI has sufficient information
+- **Validation Owner** - Validates outputs before decisions
+- **Feedback Owner** - Captures learnings for system improvement
+
+---
+
+## Next Steps
+
+1. **Speaker Review** - JV and Bassan review full script and presentation
+2. **Rehearsal** - Run through timing and transitions
+3. **Final Adjustments** - Incorporate speaker feedback
+4. **Event Execution** - January 30, 2026, 11:00 AM
+
+---
+
+## Notes
+
+- All content is in Brazilian Portuguese
+- Interactive elements (chat prompts) included throughout
+- Estimated timing allows buffer for Q&A
+- AI Framework is the primary internal case study demonstrating the principles
