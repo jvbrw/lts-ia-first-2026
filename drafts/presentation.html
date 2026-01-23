@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenvolvimento de Produto IA-First</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0b;
+            --bg-secondary: #111113;
+            --bg-card: #18181b;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #3b82f6;
+            --accent-warm: #f59e0b;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --border: #27272a;
+        }
+
+        @page {
+            size: 1920px 1080px;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .slide {
+                page-break-after: always !important;
+                page-break-inside: avoid !important;
+                break-after: page !important;
+                break-inside: avoid !important;
+            }
+            .slide:last-child {
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+            }
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            min-height: 1080px;
+            max-height: 1080px;
+            padding: 80px 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            page-break-after: always;
+            break-after: page;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            position: relative;
+            background: var(--bg-primary);
+            overflow: hidden;
+        }
+
+        .slide:last-child {
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+
+        /* Slide variations */
+        .slide.title-slide {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide.section-slide {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #0f172a 100%);
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .slide.data-slide {
+            justify-content: center;
+        }
+
+        .slide.quote-slide {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide.comparison-slide {
+            justify-content: center;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 72px;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: 56px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 42px;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+
+        h4 {
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 32px;
+        }
+
+        p {
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .subtitle {
+            font-size: 36px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+
+        .large-text {
+            font-size: 48px;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .accent-text {
+            color: var(--accent);
+        }
+
+        .warm-accent {
+            color: var(--accent-warm);
+        }
+
+        .muted {
+            color: var(--text-muted);
+        }
+
+        /* Quote styling */
+        .quote {
+            font-size: 54px;
+            font-weight: 400;
+            line-height: 1.4;
+            max-width: 1400px;
+            color: var(--text-primary);
+        }
+
+        .quote::before {
+            content: '"';
+            color: var(--accent);
+        }
+
+        .quote::after {
+            content: '"';
+            color: var(--accent);
+        }
+
+        /* Data grid */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+            margin-top: 40px;
+        }
+
+        .data-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .data-number {
+            font-size: 120px;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+        .data-number.warning {
+            color: var(--danger);
+        }
+
+        .data-number.success {
+            color: var(--success);
+        }
+
+        .data-label {
+            font-size: 28px;
+            color: var(--text-secondary);
+            margin-top: 12px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            margin-top: 32px;
+        }
+
+        .card.success-card {
+            border-left: 4px solid var(--success);
+        }
+
+        .card.failure-card {
+            border-left: 4px solid var(--danger);
+        }
+
+        .card-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .card-content {
+            font-size: 26px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .card-content li {
+            margin-bottom: 12px;
+        }
+
+        /* Comparison layout */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-top: 48px;
+        }
+
+        .comparison-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comparison-header {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .comparison-item {
+            font-size: 30px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .comparison-column:last-child .comparison-item {
+            color: var(--text-primary);
+        }
+
+        /* Flow diagram */
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 48px;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border-radius: 24px;
+        }
+
+        .flow-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .flow-command {
+            font-size: 24px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--accent);
+            background: var(--bg-primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .flow-label {
+            font-size: 20px;
+            color: var(--text-muted);
+        }
+
+        .flow-arrow {
+            font-size: 36px;
+            color: var(--text-muted);
+        }
+
+        /* List styling */
+        .principle-list {
+            list-style: none;
+            margin-top: 32px;
+        }
+
+        .principle-list li {
+            font-size: 30px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            padding-left: 32px;
+            position: relative;
+        }
+
+        .principle-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* Metrics grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            margin-top: 48px;
+        }
+
+        .metric-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            color: var(--text-secondary);
+        }
+
+        /* Section badge */
+        .section-badge {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 24px;
+        }
+
+        /* Footer */
+        .slide-footer {
+            position: absolute;
+            bottom: 40px;
+            left: 120px;
+            right: 120px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        /* Result highlight */
+        .result-box {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-top: 48px;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 24px;
+        }
+
+        .result-number {
+            font-size: 96px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .result-arrow {
+            font-size: 48px;
+            color: var(--text-muted);
+        }
+
+        .result-description {
+            font-size: 28px;
+            color: var(--text-secondary);
+        }
+
+        /* Owners grid */
+        .owners-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 48px;
+        }
+
+        .owner-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .owner-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .owner-description {
+            font-size: 22px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .owner-metric {
+            font-size: 18px;
+            color: var(--text-muted);
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Decision cards */
+        .decision-number {
+            font-size: 120px;
+            font-weight: 700;
+            color: var(--border);
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .decision-title {
+            font-size: 42px;
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .decision-question {
+            font-size: 28px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .decision-consequence {
+            font-size: 24px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Action list */
+        .action-list {
+            list-style: none;
+            margin-top: 48px;
+        }
+
+        .action-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .action-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.15);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .action-content {
+            flex: 1;
+        }
+
+        .action-verb {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .action-description {
+            font-size: 24px;
+            color: var(--text-secondary);
+        }
+
+        /* Takeaways */
+        .takeaways-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-top: 48px;
+        }
+
+        .takeaway-column h4 {
+            font-size: 22px;
+            margin-bottom: 32px;
+        }
+
+        .takeaway-item {
+            margin-bottom: 28px;
+        }
+
+        .takeaway-title {
+            font-size: 26px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .takeaway-description {
+            font-size: 22px;
+            color: var(--text-muted);
+        }
+
+        /* Presenter tag */
+        .presenter-tag {
+            display: inline-block;
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.15);
+            padding: 8px 20px;
+            border-radius: 8px;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 01: Title -->
+<div class="slide title-slide">
+    <h4>Leading Tech Sessions</h4>
+    <h1>Desenvolvimento de Produto<br>IA-First</h1>
+    <p class="subtitle">O que muda no desenho dos times</p>
+    <div class="slide-footer">
+        <span>BossaBox</span>
+        <span>30 Janeiro 2026</span>
+    </div>
+</div>
+
+<!-- Slide 02: The Question -->
+<div class="slide quote-slide">
+    <p class="quote large-text">Quem aqui já ouviu que IA vai aumentar<br>10x a produtividade do time?</p>
+</div>
+
+<!-- Slide 03: Follow-up -->
+<div class="slide quote-slide">
+    <p class="quote large-text">E depois viu o resultado<br>não bater com a expectativa?</p>
+</div>
+
+<!-- Slide 04: The Data Reality -->
+<div class="slide data-slide">
+    <h4>A realidade dos dados</h4>
+    <div class="data-grid">
+        <div class="data-item">
+            <span class="data-number">88.3%</span>
+            <span class="data-label">times usando IA</span>
+        </div>
+        <div class="data-item">
+            <span class="data-number warning">32.7%</span>
+            <span class="data-label">taxa de aceitação de AI PRs</span>
+        </div>
+        <div class="data-item">
+            <span class="data-number success">84.4%</span>
+            <span class="data-label">taxa de aceitação de PRs manuais</span>
+        </div>
+        <div class="data-item">
+            <span class="data-number warning">45%</span>
+            <span class="data-label">não medem impacto</span>
+        </div>
+    </div>
+    <div class="slide-footer">
+        <span></span>
+        <span class="muted">Fonte: LinearB 2026 Benchmarks</span>
+    </div>
+</div>
+
+<!-- Slide 05: The Thesis -->
+<div class="slide quote-slide">
+    <p class="quote">A ferramenta não é o mais importante.<br><br>É como a empresa se organiza<br>para usar as ferramentas disponíveis.</p>
+</div>
+
+<!-- Slide 06: Session Structure -->
+<div class="slide comparison-slide">
+    <h4>Estrutura da sessão</h4>
+    <div class="comparison">
+        <div class="comparison-column">
+            <div class="comparison-header">Bloco 1</div>
+            <h3>O que aprendemos<br>em 2025</h3>
+            <p style="margin-top: 24px;">Casos reais, frameworks validados,<br>princípios que funcionam</p>
+            <span class="presenter-tag">JV · ~30 min</span>
+        </div>
+        <div class="comparison-column">
+            <div class="comparison-header">Bloco 2</div>
+            <h3>O que isso exige<br>em 2026</h3>
+            <p style="margin-top: 24px;">Redesenho de ownership,<br>context engineering, papel do líder</p>
+            <span class="presenter-tag">Bassan · ~30 min</span>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 07: Block 1 Title -->
+<div class="slide section-slide">
+    <div class="section-badge">Bloco 1</div>
+    <h1>O Que Aprendemos<br>Construindo Produto<br>com IA em 2025</h1>
+    <span class="presenter-tag">JV</span>
+</div>
+
+<!-- Slide 08: The Pattern -->
+<div class="slide">
+    <h4>O padrão que identificamos</h4>
+    <h2>IA funciona quando há<br>contexto estruturado e lógica de<br>captura de valor em cada etapa.</h2>
+    <p class="large-text" style="margin-top: 48px; color: var(--accent);">IA como fluxo de trabalho<br>— não como trabalho atomizado.</p>
+</div>
+
+<!-- Slide 09: Case 1 Success -->
+<div class="slide">
+    <h4>Onde funcionou</h4>
+    <div class="card success-card">
+        <div class="card-label">Caso 1</div>
+        <h3 class="card-title">POCs de Viabilidade Técnica</h3>
+        <div class="card-content">
+            <p>Feature complexa com incerteza alta<br>POC em 2-3 dias vs 2 meses de desenvolvimento</p>
+            <ul style="margin-top: 32px; list-style: none;">
+                <li style="color: var(--success);">✓ Escopo limitado</li>
+                <li style="color: var(--success);">✓ Feedback rápido</li>
+                <li style="color: var(--success);">✓ Decisão binária (viável/inviável)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 10: Case 2 Success -->
+<div class="slide">
+    <h4>Onde funcionou</h4>
+    <div class="card success-card">
+        <div class="card-label">Caso 2</div>
+        <h3 class="card-title">Features de Baixa-Média Complexidade</h3>
+        <div class="card-content">
+            <p>Ciclo completo com IA em cada etapa:</p>
+            <div class="flow" style="margin-top: 32px;">
+                <div class="flow-item">
+                    <span class="flow-command">spec</span>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">
+                    <span class="flow-command">refinement</span>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">
+                    <span class="flow-command">implementação</span>
+                </div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-item">
+                    <span class="flow-command">QA</span>
+                </div>
+            </div>
+            <p style="margin-top: 32px; color: var(--text-primary);">Cada etapa alimenta a próxima com contexto estruturado.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 11: Transition -->
+<div class="slide quote-slide">
+    <h2 class="muted">Mas nem tudo funcionou.</h2>
+</div>
+
+<!-- Slide 12: Anti-pattern -->
+<div class="slide quote-slide">
+    <h4>O anti-padrão</h4>
+    <h1 class="warm-accent">"Delegar sem estrutura"</h1>
+</div>
+
+<!-- Slide 13: Case 1 Failure -->
+<div class="slide">
+    <h4>Onde quebrou</h4>
+    <div class="card failure-card">
+        <div class="card-label">Caso 1</div>
+        <h3 class="card-title">"Cria uma feature pra mim"</h3>
+        <div class="card-content">
+            <p>PM delegou spec inteira para IA<br>sem contexto estruturado.</p>
+            <p style="margin-top: 32px; font-size: 30px; color: var(--text-primary);">Feature desenvolvida.<br>Ninguém usou.<br><span style="color: var(--danger);">Nem validou se fazia sentido.</span></p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 14: Case 2 Failure -->
+<div class="slide">
+    <h4>Onde quebrou</h4>
+    <div class="card failure-card">
+        <div class="card-label">Caso 2</div>
+        <h3 class="card-title">O Problema do AI PR</h3>
+        <div class="card-content" style="display: flex; gap: 80px;">
+            <div>
+                <p>PR 3x maior que necessário<br>5x mais tempo de review<br>Overwork no time</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="display: flex; align-items: center; gap: 24px;">
+                    <div>
+                        <span class="data-number warning" style="font-size: 72px;">32.7%</span>
+                        <span class="data-label">AI PRs</span>
+                    </div>
+                    <span style="font-size: 36px; color: var(--text-muted);">vs</span>
+                    <div>
+                        <span class="data-number success" style="font-size: 72px;">84.4%</span>
+                        <span class="data-label">Manual</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 15: Case 3 Failure -->
+<div class="slide">
+    <h4>Onde quebrou</h4>
+    <div class="card failure-card">
+        <div class="card-label">Caso 3</div>
+        <h3 class="card-title">Excesso de Agentes</h3>
+        <div class="card-content">
+            <p>Time criou múltiplos agentes<br>para automatizar tudo.</p>
+            <div style="margin-top: 40px; font-size: 48px; font-weight: 500;">
+                <span style="color: var(--danger);">+ Complexidade</span><br>
+                <span style="color: var(--danger);">+ Manutenção</span><br>
+                <span style="color: var(--text-muted);">− ROI</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 16: Learning -->
+<div class="slide quote-slide">
+    <h2>IA por conveniência<br><span class="muted">≠</span><br>IA com valor claro</h2>
+</div>
+
+<!-- Slide 17: AI Framework Intro -->
+<div class="slide section-slide">
+    <div class="section-badge">Nossa resposta</div>
+    <h1>AI Framework</h1>
+    <p class="subtitle">Framework de agentes especializados<br>que automatizam o ciclo de desenvolvimento de produto.</p>
+</div>
+
+<!-- Slide 18: 5 Capabilities -->
+<div class="slide">
+    <h4>As 5 capabilities</h4>
+    <div class="metrics-grid" style="grid-template-columns: repeat(5, 1fr); gap: 24px;">
+        <div class="metric-card">
+            <div class="metric-label">PM</div>
+            <div class="metric-value">PRDs<br>User Stories<br>Refinamento</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Tech Lead</div>
+            <div class="metric-value">Specs técnicas<br>Arquitetura</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">SWE</div>
+            <div class="metric-value">Implementação<br>Tasks refinadas</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">QA</div>
+            <div class="metric-value">Test cases<br>Validação</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Refinement</div>
+            <div class="metric-value">US → Tasks<br>DoR</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 19: The Flow -->
+<div class="slide">
+    <h4>O fluxo na prática</h4>
+    <div class="flow">
+        <div class="flow-item">
+            <span class="flow-command">/initiative-start</span>
+            <span class="flow-label">Classifica + gera US</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">
+            <span class="flow-command">/refinement</span>
+            <span class="flow-label">Quebra em tasks (DoR)</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">
+            <span class="flow-command">/implement</span>
+            <span class="flow-label">TDAID</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-item">
+            <span class="flow-command">/qa-test</span>
+            <span class="flow-label">Valida implementação</span>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 20: TDAID -->
+<div class="slide">
+    <h4>Test-Driven AI Development</h4>
+    <h2>TDAID</h2>
+    <div class="metrics-grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 64px;">
+        <div class="metric-card">
+            <div class="metric-label" style="color: var(--text-muted);">1. Planning</div>
+            <div class="metric-value">Analisa e define estrutura</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label" style="color: var(--danger);">2. Red</div>
+            <div class="metric-value">Escreve testes<br>(devem falhar)</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label" style="color: var(--success);">3. Green</div>
+            <div class="metric-value">Implementa para<br>testes passarem</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label" style="color: var(--accent);">4. Validate</div>
+            <div class="metric-value">Validações de qualidade</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 21: Result -->
+<div class="slide">
+    <h4>Resultado</h4>
+    <div class="result-box">
+        <span class="result-number">32%</span>
+        <span class="result-arrow">→</span>
+        <span class="result-number">+80%</span>
+        <div class="result-description">
+            Taxa de aceitação de PRs<br>gerados pelo framework.
+        </div>
+    </div>
+</div>
+
+<!-- Slide 22: Principles Intro -->
+<div class="slide section-slide">
+    <div class="section-badge">Validados em 2025</div>
+    <h1>3 Princípios</h1>
+</div>
+
+<!-- Slide 23: Principle 1 -->
+<div class="slide">
+    <h4>Princípio 01</h4>
+    <h2>Context Engineering<br>é a nova core skill.</h2>
+    <p class="large-text" style="margin-top: 48px; font-style: italic;">"IA só é boa quanto o contexto que você dá."</p>
+    <ul class="principle-list">
+        <li>Product Spec não é "nice to have" — é infraestrutura crítica</li>
+        <li>Documentação técnica vira input, não output</li>
+        <li>Quem domina contexto, domina o resultado</li>
+    </ul>
+</div>
+
+<!-- Slide 24: Principle 2 -->
+<div class="slide">
+    <h4>Princípio 02</h4>
+    <h2>Human-in-the-Loop<br>muda de lugar, não desaparece.</h2>
+    <p class="large-text" style="margin-top: 48px; font-style: italic;">"A responsabilidade aumenta, não diminui."</p>
+    <div class="comparison" style="margin-top: 48px;">
+        <div class="comparison-column">
+            <div class="comparison-header">De</div>
+            <p class="comparison-item">Humano executa<br>IA assiste</p>
+        </div>
+        <div class="comparison-column">
+            <div class="comparison-header">Para</div>
+            <p class="comparison-item">IA executa<br>Humano valida e orquestra</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 25: Principle 3 -->
+<div class="slide">
+    <h4>Princípio 03</h4>
+    <h2>Repertório importa<br>mais que prompt.</h2>
+    <p class="large-text" style="margin-top: 48px; font-style: italic;">"Show it what great looks like."</p>
+    <ul class="principle-list">
+        <li>Biblioteca de 50 specs exemplares > prompt genérico</li>
+        <li>IA aprende com seus melhores exemplos</li>
+        <li>Tempo investido em curadoria tem retorno exponencial</li>
+    </ul>
+</div>
+
+<!-- Slide 26: Block 1 Summary -->
+<div class="slide">
+    <h4>Bloco 1 · Takeaways</h4>
+    <div style="margin-top: 48px;">
+        <div class="takeaway-item" style="margin-bottom: 48px;">
+            <h3 style="font-size: 36px;">Adoção alta ≠ resultado alto</h3>
+            <p style="font-size: 24px; color: var(--text-muted); margin-top: 8px;">88% usam IA, 32% dos outputs são aceitos</p>
+        </div>
+        <div class="takeaway-item" style="margin-bottom: 48px;">
+            <h3 style="font-size: 36px;">Contexto é o gargalo</h3>
+            <p style="font-size: 24px; color: var(--text-muted); margin-top: 8px;">Não falta capacidade de geração, falta estrutura</p>
+        </div>
+        <div class="takeaway-item">
+            <h3 style="font-size: 36px;">Framework > Ferramenta</h3>
+            <p style="font-size: 24px; color: var(--text-muted); margin-top: 8px;">Estrutura muda resultado</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 27: Transition -->
+<div class="slide quote-slide">
+    <p class="quote">A ferramenta não é o mais importante.<br><br>O que importa é como a empresa se organiza<br>para usar as ferramentas disponíveis.</p>
+</div>
+
+<!-- Slide 28: Block 2 Title -->
+<div class="slide section-slide">
+    <div class="section-badge">Bloco 2</div>
+    <h1>O Que Esses Aprendizados<br>Exigem do Desenho<br>dos Times em 2026</h1>
+    <span class="presenter-tag">Bassan</span>
+</div>
+
+<!-- Slide 29: Fundamental Shift -->
+<div class="slide">
+    <h4>O shift fundamental</h4>
+    <h1>De Systems of Record<br>para Systems of Intelligence</h1>
+</div>
+
+<!-- Slide 30: SOR vs SOI -->
+<div class="slide comparison-slide">
+    <div class="comparison">
+        <div class="comparison-column">
+            <div class="comparison-header">Systems of Record</div>
+            <p class="comparison-item">Dashboards estáticos</p>
+            <p class="comparison-item">Human-in-the-loop</p>
+            <p class="comparison-item">Human middleware</p>
+            <p class="comparison-item">Software que informa</p>
+        </div>
+        <div class="comparison-column">
+            <div class="comparison-header">Systems of Intelligence</div>
+            <p class="comparison-item">Inteligência em tempo real</p>
+            <p class="comparison-item">Human-on-the-loop</p>
+            <p class="comparison-item">Autonomous outcomes</p>
+            <p class="comparison-item">Software que age</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 31: Ownership Problem -->
+<div class="slide">
+    <h4>O problema</h4>
+    <h2>Ownership tradicional<br>não funciona com IA.</h2>
+    <div style="margin-top: 64px;">
+        <p class="large-text muted">Quem é "dono" de um output gerado por IA?</p>
+        <p class="large-text muted" style="margin-top: 24px;">Quem valida se o contexto estava certo?</p>
+        <p class="large-text muted" style="margin-top: 24px;">Quem é responsável quando IA amplifica um erro?</p>
+    </div>
+</div>
+
+<!-- Slide 32: Three Owners -->
+<div class="slide">
+    <h4>Novo modelo</h4>
+    <h2>Ownership de Contexto + Outcome</h2>
+    <div class="owners-grid">
+        <div class="owner-card">
+            <div class="owner-title">Context Owner</div>
+            <div class="owner-description">Garante que IA tem informação suficiente para operar</div>
+            <div class="owner-metric">Métrica: Qualidade input → output</div>
+        </div>
+        <div class="owner-card">
+            <div class="owner-title">Validation Owner</div>
+            <div class="owner-description">Valida outputs antes de virarem decisões</div>
+            <div class="owner-metric">Métrica: Taxa de aceitação, tempo de review</div>
+        </div>
+        <div class="owner-card">
+            <div class="owner-title">Feedback Owner</div>
+            <div class="owner-description">Captura aprendizados e melhora o sistema</div>
+            <div class="owner-metric">Métrica: Evolução ao longo do tempo</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 33: Context Engineering -->
+<div class="slide">
+    <h4>Context Engineering</h4>
+    <h2>Não é mais tarefa.<br>É disciplina.</h2>
+</div>
+
+<!-- Slide 34: Product Spec -->
+<div class="slide comparison-slide">
+    <h4>Product Spec</h4>
+    <div class="comparison">
+        <div class="comparison-column">
+            <div class="comparison-header">Antes</div>
+            <p class="comparison-item" style="font-size: 36px;">Documento opcional</p>
+            <p class="comparison-item" style="font-size: 36px;">"Nice to have"</p>
+        </div>
+        <div class="comparison-column">
+            <div class="comparison-header">Agora</div>
+            <p class="comparison-item" style="font-size: 36px;">Pré-requisito</p>
+            <p class="comparison-item" style="font-size: 36px; color: var(--accent);">Infraestrutura crítica</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 35: Documentation Shift -->
+<div class="slide comparison-slide">
+    <h4>Documentação</h4>
+    <div class="comparison">
+        <div class="comparison-column">
+            <div class="comparison-header">Antes</div>
+            <p class="comparison-item" style="font-size: 36px;">Documentamos<br>depois de fazer</p>
+            <p class="comparison-item" style="font-size: 48px; margin-top: 32px;">Output</p>
+        </div>
+        <div class="comparison-column">
+            <div class="comparison-header">Agora</div>
+            <p class="comparison-item" style="font-size: 36px;">Documentamos para<br>IA poder fazer</p>
+            <p class="comparison-item accent-text" style="font-size: 48px; margin-top: 32px;">Input</p>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 36: Decision Framework -->
+<div class="slide">
+    <h4>Evitando IA por conveniência</h4>
+    <h3>Perguntas antes de implementar IA</h3>
+    <ul class="principle-list" style="margin-top: 48px;">
+        <li style="font-size: 32px;"><strong>Qual o valor esperado?</strong> — ROI concreto, não "seria legal"</li>
+        <li style="font-size: 32px;"><strong>Quem vai validar o output?</strong> — Essa pessoa tem tempo e skill</li>
+        <li style="font-size: 32px;"><strong>Como vamos medir sucesso?</strong> — 45% das empresas não medem</li>
+        <li style="font-size: 32px;"><strong>O contexto existe?</strong> — Ou precisa ser criado primeiro</li>
+    </ul>
+</div>
+
+<!-- Slide 37: Leader Role -->
+<div class="slide">
+    <h4>O papel do líder</h4>
+    <h2>Em times IA-first</h2>
+    <div class="metrics-grid" style="margin-top: 64px;">
+        <div class="metric-card">
+            <div class="metric-label">De</div>
+            <div class="metric-value" style="font-size: 22px;">Executor</div>
+            <div style="font-size: 32px; margin: 16px 0;">↓</div>
+            <div class="metric-label">Para</div>
+            <div class="metric-value" style="font-size: 22px; color: var(--accent);">Orquestrador</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">De</div>
+            <div class="metric-value" style="font-size: 22px;">Especialista</div>
+            <div style="font-size: 32px; margin: 16px 0;">↓</div>
+            <div class="metric-label">Para</div>
+            <div class="metric-value" style="font-size: 22px; color: var(--accent);">Arquiteto de Contexto</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">De</div>
+            <div class="metric-value" style="font-size: 22px;">Gerente de Pessoas</div>
+            <div style="font-size: 32px; margin: 16px 0;">↓</div>
+            <div class="metric-label">Para</div>
+            <div class="metric-value" style="font-size: 22px; color: var(--accent);">Gerente de Sistema</div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 38: Decisions Intro -->
+<div class="slide section-slide">
+    <h1>O Que Não Pode Mais<br>Ser Adiado em 2026</h1>
+</div>
+
+<!-- Slide 39: Decision 1 -->
+<div class="slide">
+    <div class="decision-number">01</div>
+    <h2 class="decision-title">Definir ownership de contexto.</h2>
+    <p class="decision-question">Quem é responsável por garantir que IA tem informação suficiente?</p>
+    <p class="decision-consequence">Se não decidir: contexto fragmentado, resultados inconsistentes.</p>
+</div>
+
+<!-- Slide 40: Decision 2 -->
+<div class="slide">
+    <div class="decision-number">02</div>
+    <h2 class="decision-title">Estabelecer métricas de IA.</h2>
+    <p class="decision-question">Como vocês vão saber se IA está ajudando ou atrapalhando?</p>
+    <p class="decision-consequence">Se não decidir: parte dos 45% que não medem.</p>
+</div>
+
+<!-- Slide 41: Decision 3 -->
+<div class="slide">
+    <div class="decision-number">03</div>
+    <h2 class="decision-title">Investir em context engineering.</h2>
+    <p class="decision-question">Documentação, specs, warmups são prioridade ou "quando der"?</p>
+    <p class="decision-consequence">Se não decidir: gap de 32% vs 84%.</p>
+</div>
+
+<!-- Slide 42: Combined Takeaways -->
+<div class="slide">
+    <h4>Takeaways</h4>
+    <div class="takeaways-grid">
+        <div class="takeaway-column">
+            <h4 style="color: var(--accent);">Bloco 1 · JV</h4>
+            <div class="takeaway-item">
+                <div class="takeaway-title">Adoção alta ≠ resultado alto</div>
+            </div>
+            <div class="takeaway-item">
+                <div class="takeaway-title">Contexto é o gargalo</div>
+            </div>
+            <div class="takeaway-item">
+                <div class="takeaway-title">Framework > Ferramenta</div>
+            </div>
+        </div>
+        <div class="takeaway-column">
+            <h4 style="color: var(--accent);">Bloco 2 · Bassan</h4>
+            <div class="takeaway-item">
+                <div class="takeaway-title">Ownership precisa ser redesenhado</div>
+            </div>
+            <div class="takeaway-item">
+                <div class="takeaway-title">Context Engineering é disciplina</div>
+            </div>
+            <div class="takeaway-item">
+                <div class="takeaway-title">Líderes viram arquitetos de sistema</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Slide 43: Monday Actions -->
+<div class="slide">
+    <h4>O que fazer segunda-feira</h4>
+    <ul class="action-list">
+        <li>
+            <span class="action-number">1</span>
+            <div class="action-content">
+                <div class="action-verb">Mapeie</div>
+                <div class="action-description">Onde IA funciona vs onde gera atrito</div>
+            </div>
+        </li>
+        <li>
+            <span class="action-number">2</span>
+            <div class="action-content">
+                <div class="action-verb">Defina</div>
+                <div class="action-description">Quem é responsável por contexto, validação e feedback</div>
+            </div>
+        </li>
+        <li>
+            <span class="action-number">3</span>
+            <div class="action-content">
+                <div class="action-verb">Meça</div>
+                <div class="action-description">Taxa de aceitação dos outputs de IA</div>
+            </div>
+        </li>
+        <li>
+            <span class="action-number">4</span>
+            <div class="action-content">
+                <div class="action-verb">Priorize</div>
+                <div class="action-description">Context engineering é investimento, não custo</div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- Slide 44: Final Question -->
+<div class="slide quote-slide">
+    <p class="large-text muted">Uma palavra que resume<br>o que vocês levam dessa conversa.</p>
+</div>
+
+<!-- Slide 45: Thank You -->
+<div class="slide title-slide">
+    <h1>Obrigado</h1>
+    <p class="subtitle">JV & Bassan</p>
+    <p class="muted" style="margin-top: 48px; font-size: 24px;">Leading Tech Sessions · BossaBox</p>
+</div>
+
+</body>
+</html>
