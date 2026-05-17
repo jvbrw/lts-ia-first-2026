@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloco 1: O Que Aprendemos Construindo Produto com IA em 2025</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/theme/black.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0a0a0b;
+            --color-blue: #3b82f6;
+            --color-green: #10b981;
+            --color-orange: #f97316;
+            --color-red: #ef4444;
+            --color-yellow: #fbbf24;
+            --color-text: #ffffff;
+            --color-muted: #9ca3af;
+        }
+
+        .reveal {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            font-weight: 900;
+            text-transform: none;
+            color: var(--color-text);
+        }
+
+        .reveal h1 { font-size: 4rem; line-height: 1.1; }
+        .reveal h2 { font-size: 3rem; line-height: 1.2; }
+        .reveal h3 { font-size: 2rem; line-height: 1.3; }
+
+        .reveal p, .reveal li {
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .reveal .slides section {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Section Dividers */
+        .section-divider {
+            background: linear-gradient(135deg, var(--color-blue), #1e3a8a);
+            padding: 4rem 2rem !important;
+        }
+
+        .section-divider.challenge {
+            background: linear-gradient(135deg, var(--color-orange), #9a3412);
+        }
+
+        .section-divider.cases {
+            background: linear-gradient(135deg, var(--color-green), #065f46);
+        }
+
+        .section-divider.trends {
+            background: linear-gradient(135deg, var(--color-blue), #7c3aed);
+        }
+
+        /* Data Slides */
+        .data-large {
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            margin: 1rem 0;
+        }
+
+        .data-positive { color: var(--color-green); }
+        .data-negative { color: var(--color-red); }
+        .data-neutral { color: var(--color-blue); }
+
+        .data-label {
+            font-size: 1.5rem;
+            color: var(--color-muted);
+            font-weight: 500;
+        }
+
+        /* Split Layout */
+        .split-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        /* Grid Layouts */
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem auto;
+        }
+
+        .grid-4col {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 2rem auto;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .card h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-blue);
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .card.highlight {
+            border-color: var(--color-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .card.innovation {
+            border-color: var(--color-yellow);
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        /* Quote/Learning */
+        .quote {
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--color-text);
+            border-left: 4px solid var(--color-blue);
+            padding-left: 1.5rem;
+            margin: 2rem auto;
+            text-align: left;
+            max-width: 800px;
+        }
+
+        /* Metrics */
+        .metric-score {
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--color-green);
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: 1.3rem;
+            color: var(--color-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Flow Diagram */
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.3rem;
+        }
+
+        .flow-item {
+            text-align: center;
+        }
+
+        .flow-item strong {
+            display: block;
+            font-size: 1.5rem;
+            color: var(--color-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-arrow {
+            color: var(--color-blue);
+            font-size: 2rem;
+        }
+
+        /* Commands */
+        .command {
+            font-family: 'Courier New', monospace;
+            font-size: 1.8rem;
+            color: var(--color-green);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* Interaction Prompts */
+        .interaction {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px solid var(--color-blue);
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 2rem auto;
+            max-width: 900px;
+        }
+
+        .interaction-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .interaction p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Case Study */
+        .case-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .case-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--color-green);
+        }
+
+        .case-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        /* Principle */
+        .principle-number {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--color-blue);
+            color: var(--color-text);
+            font-size: 4rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+        }
+
+        /* Evidence Box */
+        .evidence {
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid var(--color-green);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 700px;
+        }
+
+        .evidence-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-green);
+            margin-bottom: 1rem;
+        }
+
+        .evidence p {
+            font-size: 1.4rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Source */
+        .source {
+            font-size: 1rem;
+            color: var(--color-muted);
+            margin-top: 2rem;
+        }
+
+        /* Statement */
+        .statement {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.4;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .statement-small {
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* List styling */
+        .reveal ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reveal ul li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .reveal ul li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--color-blue);
+            font-weight: 900;
+            font-size: 1.5rem;
+        }
+
+        /* Comparison */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+
+        .comparison-arrow {
+            font-size: 3rem;
+            color: var(--color-blue);
+        }
+
+        /* Utilities */
+        .text-blue { color: var(--color-blue); }
+        .text-green { color: var(--color-green); }
+        .text-orange { color: var(--color-orange); }
+        .text-muted { color: var(--color-muted); }
+        .text-left { text-align: left; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-2 { margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 01: Título -->
+            <section>
+                <p style="font-size: 1.5rem; color: var(--color-muted); margin-bottom: 3rem;">BLOCO 1</p>
+                <h1>O Que Aprendemos Construindo<br>Produto com IA em 2025</h1>
+                <p style="font-size: 1.5rem; margin-top: 4rem;">JV</p>
+                <p style="font-size: 1.2rem; color: var(--color-muted);">Leading Tech Session — Janeiro 2026</p>
+            </section>
+
+            <!-- Slide 02: Pergunta Central -->
+            <section>
+                <p class="statement">"O que 2025 nos ensinou, na prática, sobre desenvolver produto com IA no centro do processo?"</p>
+            </section>
+
+            <!-- Slide 03: A Realidade dos Números -->
+            <section>
+                <div class="split-2col">
+                    <div>
+                        <div class="data-large data-positive">88.3%</div>
+                        <p class="data-label">de adoção<br>de IA em times</p>
+                    </div>
+                    <div>
+                        <div class="data-large data-negative">32.7%</div>
+                        <p class="data-label">de aceitação<br>de PRs de IA</p>
+                    </div>
+                </div>
+                <p class="statement-small mt-2">Todo mundo usando. Poucos obtendo resultado.</p>
+                <p class="source">Fonte: LinearB 2026 Software Engineering Benchmarks</p>
+            </section>
+
+            <!-- Slide 04: O Paradoxo -->
+            <section>
+                <p class="statement">A ferramenta não é o problema.</p>
+                <p class="statement-small mt-2">É como você estrutura o trabalho ao redor dela.</p>
+            </section>
+
+            <!-- Slide 05: Interação -->
+            <section>
+                <div class="interaction">
+                    <div class="interaction-emoji">💬</div>
+                    <p>"Aquela situação: usamos IA para fazer várias coisas do fluxo - e que foram mais rápidas - mas depois a gente viu que o tempo que ganhamos na hora de fazer agora estamos gastando na hora de revisar"</p>
+                    <p class="text-muted mt-2">[Pausa para interação]</p>
+                </div>
+            </section>
+
+            <!-- Slide 06: Section Divider - O Desafio -->
+            <section class="section-divider challenge">
+                <h2>O Desafio que nos Levou a<br>Construir o AI Framework</h2>
+            </section>
+
+            <!-- Slide 07: Contexto BossaBox -->
+            <section>
+                <h2 class="text-blue">BossaBox</h2>
+                <p class="statement-small mt-2">Empresa que desenvolve produtos<br>para múltiplos clientes</p>
+                <p class="statement-small mt-2">Como incorporar o uso de IA mantendo<br>qualidade e velocidade?</p>
+            </section>
+
+            <!-- Slide 08: 4 Problemas Práticos -->
+            <section>
+                <h3 class="mb-2">4 Problemas Práticos</h3>
+                <div class="grid-2x2">
+                    <div class="card">
+                        <h4>Backlog represado</h4>
+                        <p>Capacidade limitada</p>
+                    </div>
+                    <div class="card">
+                        <h4>Inconsistência</h4>
+                        <p>Cada dev documenta diferente</p>
+                    </div>
+                    <div class="card">
+                        <h4>Contexto perdido</h4>
+                        <p>Re-explicar tudo a cada interação</p>
+                    </div>
+                    <div class="card">
+                        <h4>Desperdício de tempo</h4>
+                        <p>Tarefas manuais vs descobrir valor</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 09: A Decisão -->
+            <section>
+                <p class="statement">A decisão:</p>
+                <p class="statement-small mt-2">Construir um <span class="text-blue">framework próprio</span>,<br>não só usar ferramentas de IA genéricas</p>
+            </section>
+
+            <!-- Slide 10: Section Divider - AI Framework -->
+            <section class="section-divider">
+                <h2>AI Framework<br>O Que Construímos</h2>
+            </section>
+
+            <!-- Slide 11: Definição -->
+            <section>
+                <p class="statement">Sistema de agentes especializados que amplifica produtividade em cada etapa do ciclo de desenvolvimento</p>
+            </section>
+
+            <!-- Slide 12: 5 Capabilities -->
+            <section>
+                <h3 class="mb-2">5 Capabilities Integradas</h3>
+                <div class="flow" style="flex-wrap: wrap; max-width: 1400px; margin: 0 auto;">
+                    <div class="flow-item">
+                        <strong>Context</strong>
+                        <p style="font-size: 1rem;">Levantamento estruturado<br>(produto, processos, tech stack)</p>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-item">
+                        <strong>Planning</strong>
+                        <p style="font-size: 1rem;">Decompõe iniciativa<br>em user stories acionáveis</p>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-item">
+                        <strong>Refinement</strong>
+                        <p style="font-size: 1rem;">Transforma stories<br>em tarefas técnicas (BE/FE)</p>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-item">
+                        <strong>Implementation</strong>
+                        <p style="font-size: 1rem;">Gera código com TDD,<br>cria testes, prepara PRs</p>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-item">
+                        <strong>QA</strong>
+                        <p style="font-size: 1rem;">Cria cenários de teste<br>e automações E2E</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 13: Principais Features -->
+            <section>
+                <h3 class="mb-2">Principais Features</h3>
+                <div class="grid-2x2">
+                    <div class="card">
+                        <h4>Brownfield Awareness</h4>
+                        <p>Funciona em produtos existentes</p>
+                    </div>
+                    <div class="card">
+                        <h4>Human-in-the-Loop</h4>
+                        <p>Validação humana entre etapas</p>
+                    </div>
+                    <div class="card">
+                        <h4>Spec-Driven Development</h4>
+                        <p>Especificação primeiro, código depois</p>
+                    </div>
+                    <div class="card">
+                        <h4>No Prompt Engineering</h4>
+                        <p>Contexto flui automaticamente</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 14: Fluxo Prático -->
+            <section>
+                <h3 class="mb-2">Fluxo Prático</h3>
+                <div class="command">/initiative-start → /refine-tasks → /implement → /test</div>
+            </section>
+
+            <!-- Slide 15: Interação -->
+            <section>
+                <div class="interaction">
+                    <div class="interaction-emoji">💬</div>
+                    <p>"Alguém já tentou algo parecido? Já usou algum produto que se propõe a fazer a mesma coisa?"</p>
+                    <p class="text-muted mt-2">[Pausa para interação]</p>
+                </div>
+            </section>
+
+            <!-- Slide 16: Section Divider - Casos Reais -->
+            <section class="section-divider cases">
+                <h2>Casos Reais<br>O Que Funcionou na Prática</h2>
+            </section>
+
+            <!-- Slide 17: Case 1 Título -->
+            <section>
+                <div class="case-header">
+                    <div class="case-number">Case 1</div>
+                    <div class="case-title">Squad Enxuto, Ciclo Completo</div>
+                    <p style="font-size: 1.3rem; color: var(--color-muted);">PM + 1 SWE executando framework completo</p>
+                </div>
+            </section>
+
+            <!-- Slide 18: Case 1 Detalhes -->
+            <section>
+                <div class="grid-3col" style="text-align: left;">
+                    <div>
+                        <h4 class="text-blue">Desafio</h4>
+                        <p style="font-size: 1.2rem;">PM + 1 SWE executando framework completo</p>
+                        <p style="font-size: 1.2rem; margin-top: 1rem;"><strong>Feature:</strong><br>Validação CNPJ (média complexidade)</p>
+                    </div>
+                    <div>
+                        <h4 class="text-green">Resultado</h4>
+                        <p style="font-size: 1.2rem;">4 user stories implementadas</p>
+                        <p style="font-size: 1.2rem; margin-top: 1rem;">100% workflow com IA</p>
+                    </div>
+                    <div>
+                        <h4 class="text-blue">Aprendizado</h4>
+                        <p class="quote">"Estamos confiantes como squad enxuto fazendo entregas end-to-end mantendo ou até superando métricas anteriores"</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 19: Case 1 Métricas -->
+            <section>
+                <div class="grid-3col">
+                    <div>
+                        <div class="metric-score">3.3/4</div>
+                        <p class="metric-label">Output Quality</p>
+                    </div>
+                    <div>
+                        <div class="metric-score">4/4</div>
+                        <p class="metric-label">Workflow Usability</p>
+                    </div>
+                    <div>
+                        <div class="metric-score">3.6/4</div>
+                        <p class="metric-label">Speed Execution</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 20: Case 2 Título -->
+            <section>
+                <div class="case-header">
+                    <div class="case-number">Case 2</div>
+                    <div class="case-title">Velocidade em Feature Complexa</div>
+                    <p style="font-size: 1.3rem; color: var(--color-muted);">Feature de alta complexidade mantendo eficiência</p>
+                </div>
+            </section>
+
+            <!-- Slide 21: Case 2 Detalhes -->
+            <section>
+                <div class="grid-3col" style="text-align: left;">
+                    <div>
+                        <h4 class="text-blue">Desafio</h4>
+                        <p style="font-size: 1.2rem;">Feature de alta complexidade mantendo eficiência</p>
+                    </div>
+                    <div>
+                        <h4 class="text-green">Solução</h4>
+                        <p style="font-size: 1.2rem;">Aproveitar código existente como referência (mostrando como as coisas boas se parecem)</p>
+                        <p style="font-size: 1.2rem; margin-top: 1rem;"><strong>Resultado:</strong> Feature em produção em &lt; 1 semana</p>
+                    </div>
+                    <div>
+                        <h4 class="text-blue">Aprendizado</h4>
+                        <p class="quote">"Framework mantém eficiência em cenários de alta complexidade, desde que tenha boa especificação e direção dos orquestradores"</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 22: Case 2 Métrica Destaque -->
+            <section>
+                <div class="metric-score" style="font-size: 8rem;">4/4</div>
+                <p class="metric-label" style="font-size: 2rem; margin-top: 2rem;">Speed Execution</p>
+                <p class="statement-small mt-2">Velocidade máxima mesmo com complexidade</p>
+            </section>
+
+            <!-- Slide 23: Case 3 Título -->
+            <section>
+                <div class="case-header">
+                    <div class="case-number">Case 3</div>
+                    <div class="case-title">Colaboração PM + TL com IA</div>
+                    <p style="font-size: 1.3rem; color: var(--color-muted);">Geração eficiente de tarefas técnicas</p>
+                </div>
+            </section>
+
+            <!-- Slide 24: Case 3 Detalhes -->
+            <section>
+                <div class="grid-3col" style="text-align: left;">
+                    <div>
+                        <h4 class="text-blue">Desafio</h4>
+                        <p style="font-size: 1.2rem;">Geração eficiente de tarefas técnicas</p>
+                    </div>
+                    <div>
+                        <h4 class="text-green">Solução</h4>
+                        <p style="font-size: 1.2rem;">PM criando user stories com agentes</p>
+                        <p style="font-size: 1.2rem; margin-top: 1rem;">+ Sub-agente customizado para code audit</p>
+                    </div>
+                    <div>
+                        <h4 class="text-blue">Resultado</h4>
+                        <p style="font-size: 1.2rem;">Tempo de geração de tarefas caiu pela metade</p>
+                        <p style="font-size: 1.2rem; margin-top: 1rem;">Time mais estratégico</p>
+                    </div>
+                </div>
+                <div class="card innovation mt-2" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <h4 style="color: var(--color-yellow);">💡 Inovação</h4>
+                    <p>Primeiro sub-agente customizado<br>(extensibilidade do framework)</p>
+                </div>
+            </section>
+
+            <!-- Slide 25: Case 3 Métricas -->
+            <section>
+                <div class="grid-3col">
+                    <div>
+                        <div class="metric-score">3.3/4</div>
+                        <p class="metric-label">Output Quality</p>
+                    </div>
+                    <div>
+                        <div class="metric-score">4/4</div>
+                        <p class="metric-label">Speed Execution</p>
+                    </div>
+                    <div>
+                        <div class="metric-score">4</div>
+                        <p class="metric-label">User Stories Implementadas</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 26: Validação Consolidada -->
+            <section>
+                <h3 class="mb-2">Validação Beta - Números Consolidados</h3>
+                <div class="grid-3col mb-2">
+                    <div>
+                        <div class="data-large data-neutral" style="font-size: 5rem;">4</div>
+                        <p class="data-label">times diferentes</p>
+                    </div>
+                    <div>
+                        <div class="data-large data-neutral" style="font-size: 5rem;">9</div>
+                        <p class="data-label">user stories implementadas</p>
+                    </div>
+                    <div>
+                        <div class="data-large data-positive" style="font-size: 5rem;">5</div>
+                        <p class="data-label">em produção</p>
+                    </div>
+                </div>
+                <div class="grid-3col mb-2">
+                    <div>
+                        <div class="metric-score" style="font-size: 3.5rem;">3.5/4</div>
+                        <p class="metric-label">Output Quality (média)</p>
+                    </div>
+                    <div>
+                        <div class="metric-score" style="font-size: 3.5rem;">3.4/4</div>
+                        <p class="metric-label">Usability (média)</p>
+                    </div>
+                    <div>
+                        <div class="metric-score" style="font-size: 3.5rem;">3.6/4</div>
+                        <p class="metric-label">Speed (média)</p>
+                    </div>
+                </div>
+                <p class="text-green" style="font-size: 1.5rem; font-weight: 700;">✓ Sem bloqueios críticos sem solução</p>
+            </section>
+
+            <!-- Slide 27: Interação -->
+            <section>
+                <div class="interaction">
+                    <div class="interaction-emoji">💬</div>
+                    <p>"Qual caso ressoa mais com o contexto de vocês?"</p>
+                    <p class="text-muted mt-2">[Pausa para interação]</p>
+                </div>
+            </section>
+
+            <!-- Slide 28: Section Divider - Princípios -->
+            <section class="section-divider">
+                <h2>3 Princípios<br>Que Validamos</h2>
+            </section>
+
+            <!-- Slide 29: Princípio 1 Título -->
+            <section>
+                <div class="principle-number">1</div>
+                <p class="statement">Context Engineering<br>é a nova core skill</p>
+            </section>
+
+            <!-- Slide 30: Princípio 1 Evidências -->
+            <section>
+                <ul style="max-width: 900px; margin: 0 auto 2rem;">
+                    <li>Contexto estruturado vs ad-hoc = diferença enorme de qualidade</li>
+                    <li>Warmup (carregar contexto uma vez) vs repetir tudo a cada prompt</li>
+                    <li>Repository + reference examples = output consistente</li>
+                </ul>
+                <div class="evidence">
+                    <p class="evidence-label">Evidência:</p>
+                    <p style="font-size: 2.5rem; font-weight: 900; color: var(--color-green);">32.7% → 80%+</p>
+                    <p>Diferença de aceitação está no contexto</p>
+                </div>
+            </section>
+
+            <!-- Slide 31: Princípio 2 Título -->
+            <section>
+                <div class="principle-number">2</div>
+                <p class="statement">Responsabilidade aumenta,<br>não diminui</p>
+            </section>
+
+            <!-- Slide 32: Princípio 2 Evidências -->
+            <section>
+                <div class="comparison">
+                    <div>
+                        <h4 class="text-muted">De</h4>
+                        <p style="font-size: 1.5rem;">"Escrever código"</p>
+                    </div>
+                    <span class="comparison-arrow">→</span>
+                    <div>
+                        <h4 class="text-blue">Para</h4>
+                        <p style="font-size: 1.5rem;">"Validar código +<br>arquitetar contexto"</p>
+                    </div>
+                </div>
+                <p class="statement-small mt-2">IA não reduz carga cognitiva, redistribui<br>Ownership se torna mais crítico</p>
+                <div class="evidence mt-2">
+                    <p class="evidence-label">Evidência (LinearB):</p>
+                    <p>PRs de IA são <strong>2.6x maiores</strong></p>
+                    <p>PRs de IA levam <strong>5.3x mais tempo</strong> de review</p>
+                </div>
+            </section>
+
+            <!-- Slide 33: Princípio 3 Título -->
+            <section>
+                <div class="principle-number">3</div>
+                <p class="statement">Conhecimento técnico<br>permanece fundamental</p>
+            </section>
+
+            <!-- Slide 34: Princípio 3 Evidências -->
+            <section>
+                <ul style="max-width: 900px; margin: 0 auto 2rem;">
+                    <li>Entender arquitetura é necessário para prompting efetivo</li>
+                    <li>Inglês vira "linguagem de programação" mas profundidade técnica é mandatória</li>
+                    <li>Não é substituição, é amplificação de quem já sabe</li>
+                </ul>
+                <div class="evidence">
+                    <p class="evidence-label">Evidência:</p>
+                    <p>Times com melhor performance técnica<br>têm melhores resultados com IA</p>
+                </div>
+            </section>
+
+            <!-- Slide 35: Interação -->
+            <section>
+                <div class="interaction">
+                    <div class="interaction-emoji">💬</div>
+                    <p>"Qual desses 3 princípios está mais presente no dia a dia de vocês?"</p>
+                    <p class="text-muted mt-2">[Pausa para interação]</p>
+                </div>
+            </section>
+
+            <!-- Slide 36: Section Divider - Tendências -->
+            <section class="section-divider trends">
+                <h2>Conexão com<br>Tendências de 2026</h2>
+            </section>
+
+            <!-- Slide 37: O Que Estamos Vendo -->
+            <section>
+                <h3 class="mb-2">O Que Estamos Vendo</h3>
+                <div class="grid-2x2">
+                    <div class="card">
+                        <h4>Adoção ampla de AI Agents</h4>
+                        <p>AI Agents como colaboradores em ambientes corporativos</p>
+                        <p class="text-muted" style="font-size: 0.9rem; margin-top: 1rem;">OpenAI Enterprise 2025</p>
+                    </div>
+                    <div class="card">
+                        <h4>Shift de papel</h4>
+                        <p>Desenvolvedores e pessoas de produto virando curadores/orquestradores</p>
+                        <p class="text-muted" style="font-size: 0.9rem; margin-top: 1rem;">GitHub Octoverse 2025</p>
+                    </div>
+                    <div class="card">
+                        <h4>IA como infraestrutura</h4>
+                        <p>Não é experimento, é parte do produto (31.8% redução em tempo de review)</p>
+                    </div>
+                    <div class="card">
+                        <h4>Análise Anthropic</h4>
+                        <p>500k+ interações mostram que automação domina sobre assistência</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 38: A Implicação -->
+            <section>
+                <p class="statement">Isso exige redesenho de times,<br>preocupação com o fluxo de trabalho</p>
+                <p class="statement-small mt-2">e não só adoção de ferramentas.</p>
+            </section>
+
+            <!-- Slide 39: Transição para Bloco 2 -->
+            <section>
+                <div style="text-align: left; max-width: 900px; margin: 0 auto;">
+                    <div class="mb-2">
+                        <h4 class="text-green">O que mostramos:</h4>
+                        <p style="font-size: 1.5rem;">Estrutura de trabalho (AI Framework) funciona quando bem desenhada</p>
+                    </div>
+                    <div class="mt-2">
+                        <h4 class="text-blue">O que falta responder:</h4>
+                        <p style="font-size: 1.5rem;">Como redesenhar times para operar dessa forma?</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 40: Handoff -->
+            <section>
+                <p class="statement-small">Bassan vai abordar o que isso exige de liderança e desenho organizacional em 2026</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            transitionSpeed: 'default',
+            center: true,
+            controls: true,
+            progress: true,
+            slideNumber: true,
+            width: 1920,
+            height: 1080,
+            margin: 0.04,
+        });
+    </script>
+</body>
+</html>
